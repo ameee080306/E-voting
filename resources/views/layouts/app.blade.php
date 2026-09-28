@@ -20,65 +20,110 @@
             --matcha-dark: #86A775; /* Primary Soft Matcha (Buttons) */
             --pink-soft: #FDFBF7; /* Soft Cream (Background) */
             --pink-dark: #6B8B5B; /* Darker Matcha (Hover/Accents) */
-            --text-dark: #3A4B31; /* Elegant Dark Green for Text */
+            --text-dark: #2c3e24; /* Elegant Dark Green for Text */
+            --text-muted: #5f7056; /* Softer gray/green for descriptions */
+            --shadow-soft: 0 10px 40px rgba(107, 139, 91, 0.08);
+            --shadow-hover: 0 16px 48px rgba(107, 139, 91, 0.15);
         }
         body {
             background-color: var(--pink-soft);
             color: var(--text-dark);
             font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+        p {
+            color: var(--text-muted);
         }
         .bg-matcha {
             background-color: var(--matcha-soft) !important;
         }
         .btn {
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            border-radius: 50rem;
+            padding: 0.6rem 1.5rem;
+        }
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
         }
         .btn-matcha {
             background-color: var(--matcha-dark);
             color: #fff;
             border: none;
-            box-shadow: 0 4px 6px rgba(134, 167, 117, 0.2);
+            box-shadow: 0 4px 12px rgba(134, 167, 117, 0.3);
         }
         .btn-matcha:hover {
             background-color: var(--pink-dark);
             color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(107, 139, 91, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(107, 139, 91, 0.4);
         }
         .btn-pink {
             background-color: var(--pink-dark);
             color: #fff;
             border: none;
+            box-shadow: 0 4px 12px rgba(107, 139, 91, 0.3);
         }
         .btn-pink:hover {
             background-color: #557248;
             color: #fff;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(85, 114, 72, 0.4);
+        }
+        .btn-outline-secondary {
+            border: 2px solid #e2e6d9 !important;
+            color: var(--text-dark) !important;
+        }
+        .btn-outline-secondary:hover {
+            background-color: var(--matcha-soft) !important;
+            border-color: var(--matcha-soft) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
         .navbar-custom {
-            background-color: rgba(253, 251, 247, 0.9);
+            background-color: rgba(253, 251, 247, 0.95);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
         }
         .card-custom {
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.03);
+            border-radius: 24px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,255,255,0.4);
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             background: #fff;
         }
         .card-custom:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
         }
         .card-header-matcha {
             background-color: var(--matcha-dark);
             color: white;
             font-weight: bold;
         }
+        
+        /* Micro-interactions (Scroll Reveal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
     </style>
     @stack('styles')
 </head>
@@ -133,6 +178,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Scroll Reveal Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 100;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    }
+                }
+            }
+            window.addEventListener("scroll", reveal);
+            reveal(); // Trigger on load
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>
