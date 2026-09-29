@@ -23,6 +23,14 @@
             "dest": "/public/build/$1"
         },
         {
+            "src": "/(img|uploads|storage)/(.*)",
+            "dest": "/public/$1/$2"
+        },
+        {
+            "src": "/(favicon\\.ico|robots\\.txt)",
+            "dest": "/public/$1"
+        },
+        {
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
