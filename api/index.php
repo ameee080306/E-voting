@@ -39,6 +39,9 @@ $_ENV['APP_CONFIG_CACHE'] = $tmpCache . '/config.php';
 $_ENV['APP_ROUTES_CACHE'] = $tmpCache . '/routes.php';
 $_ENV['APP_EVENTS_CACHE'] = $tmpCache . '/events.php';
 
+// Load composer autoloader
+require __DIR__ . '/../vendor/autoload.php';
+
 // Memastikan base application load dengan storage path di /tmp
 $app = require __DIR__ . '/../bootstrap/app.php';
 
